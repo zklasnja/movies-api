@@ -12,4 +12,11 @@ class Movie extends Model
     protected $table = 'movies';
 
     protected $fillable = ['title', 'director', 'imageUrl', 'duration', 'releaseDate', 'genre'];
+
+    public static function search($term)
+    {
+        return self::when($term, function ($query, $term) {
+            $query->where('title', 'LIKE', '%' . $term . '%');
+        });
+    }
 }
